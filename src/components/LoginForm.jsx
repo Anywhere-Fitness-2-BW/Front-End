@@ -4,16 +4,14 @@ export default function LoginForm(props) {
   const { values, onInputChange, onSubmit, disabled, errors } = props;
 
   return (
-    <div>
-  
-      <form className="form container" onSubmit={onSubmit}>
+{/* <form className="form container" onSubmit={onSubmit}>
         <div>
           <h2>Log In</h2>
           <button disabled={disabled} className="submit">
             Login
           </button>
         </div>
-        {/* <div className="errors">
+        <div className="errors">
           <div>{errors.username}</div>
           <div>{errors.password}</div>
         </div>
@@ -37,8 +35,11 @@ export default function LoginForm(props) {
               type="text"
             />
           </label>
-        </div> */}
-      </form>
-    </div>
+        </div>
+      </form> */}
+    
   );
 }
+
+
+      

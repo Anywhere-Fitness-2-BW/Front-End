@@ -5,14 +5,14 @@ import axios from "axios";
 import * as yup from "yup";
 
 const initialFormValues = {
-    fullName:'',
+    name:'',
     email:'',
     username:'',
     password:'',
     role:'',
 }
 const initialFormErrors = {
-    fullName:'',
+    name:'',
     email:'',
     username:'',
     password:'',
@@ -82,7 +82,7 @@ export default function Registration() {
         evt.preventDefault();
     
         const newUser = {
-          name: formValues.fullName.trim(),
+          name: formValues.name.trim(),
           email: formValues.email.trim(),
           username: formValues.username.trim(),
           password: formValues.password.trim(),
@@ -115,7 +115,7 @@ export default function Registration() {
             onInputChange={onInputChange}
             onSubmit={onSubmit}
             disabled={disabled}
-            // errors={formErrors}
+            errors={formErrors}
           />
           </div>
         </div>

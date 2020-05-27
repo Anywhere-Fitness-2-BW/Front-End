@@ -75,11 +75,11 @@ export default function Login() {
         <div className="login container">
           <div>
           <LoginForm
-            // values={formValues}
-            // onInputChange={onInputChange}
-            // onSubmit={onSubmit}
-            // disabled={disabled}
-            // errors={formErrors}
+            values={formValues}
+            onInputChange={onInputChange}
+            onSubmit={onSubmit}
+            disabled={disabled}
+            errors={formErrors}
           />
           </div>
         </div>

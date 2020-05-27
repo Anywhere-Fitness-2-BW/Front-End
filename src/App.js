@@ -10,6 +10,8 @@ import './App.css';
 import NavBar from './components/Navbar'
 import Registration from './components/Registration'
 import Login from './components/Login'
+// import Login from './components/Test'
+// import SignUp from './components/TestR'
 
 
 
