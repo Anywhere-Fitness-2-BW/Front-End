@@ -13,6 +13,9 @@ import Client from "./components/Protected/Client/Client";
 import Instructor from "./components//Protected/Instructor/Instructor";
 import CreateClass from "./components/Protected/Instructor/CreateClass";
 import EditClass from "./components/Protected/Instructor/EditClass";
+import LoginMark from "./components/LoginMark";
+import Register from "./components/Register";
+
 const sampleClassList = [
   {
     id: 0,
@@ -105,7 +108,8 @@ function App() {
           <NavContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             <Navigation />
             <Route path="/login">
-              <Login /> {/* Dummy Login page, replace with REACT I's Login*/}
+              <LoginMark />
+              <Register />
             </Route>
 
             <PrivateRoute path="/client" component={Client} />
