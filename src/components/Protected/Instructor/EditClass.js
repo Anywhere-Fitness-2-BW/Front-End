@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axiosWithAuth from "../../../utils/axiosWithAuth";
+// import axiosWithAuth from "../../../utils/axiosWithAuth";
 import { useParams, useHistory } from "react-router-dom";
 import { ClassListContext } from "../../../contexts/ClassListContext";
 
@@ -21,14 +21,14 @@ const EditClass = (props) => {
   const { id } = useParams();
   const { push } = useHistory();
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`/api/auth/users/classes/${id}`)
-      .then((res) => {
-        setEditClass(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
+  // useEffect(() => {
+  //   axiosWithAuth()
+  //     .get(`/api/auth/users/classes/${id}`)
+  //     .then((res) => {
+  //       setEditClass(res.data);
+  //     })
+  //     .catch((err) => console.log(err));
+  // }, [id]);
 
   const handleChange = (event) => {
     event.persist();
@@ -42,18 +42,18 @@ const EditClass = (props) => {
     });
   };
 
-  const onSubmit = (event) => {
-    event.preventDefault();
-    axiosWithAuth()
-      .put(`api/auth/instructor/${id}`, editClass)
-      .then((res) => {
-        const mergeArrayWithObject = (arr, obj) =>
-          arr && arr.map((t) => (t.id === obj.id ? obj : t));
-        updateColors(mergeArrayWithObject(colors, res.data));
-        push(`classes/${id}`);
-      })
-      .catch((err) => console.log(err));
-  };
+  // const onSubmit = (event) => {
+  //   event.preventDefault();
+  //   axiosWithAuth()
+  //     .put(`api/auth/instructor/${id}`, editClass)
+  //     .then((res) => {
+  //       const mergeArrayWithObject = (arr, obj) =>
+  //         arr && arr.map((t) => (t.id === obj.id ? obj : t));
+  //       updateColors(mergeArrayWithObject(colors, res.data));
+  //       push(`classes/${id}`);
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   return (
     <div className="createContainer">
