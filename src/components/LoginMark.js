@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import formSchema from "../validation/formSchema";
-import axios from "axios";
+import React, { useState, useEffect } from "react";
+import loginSchema from "../validation/loginSchema";
+// import axios from "axios";
 import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
@@ -23,24 +23,12 @@ export default function Login() {
   const [disabled, setDisabled] = useState(initialDisabled);
   const { push } = useHistory();
 
-  // const loginUsers = () => {
-
-  // axios
-  //   .post("https://anytime-fitness.herokuapp.com/api/auth/login")
-  //   .then((res) => {
-  //     setUser(res.data);
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   });
-  // };
-
   const onInputChange = (evt) => {
     const name = evt.target.name;
     const value = evt.target.value;
 
     yup
-      .reach(formSchema, name)
+      .reach(loginSchema, name)
       .validate(value)
       .then((valid) => {
         setFormErrors({
@@ -73,17 +61,15 @@ export default function Login() {
       });
   };
 
-  // useEffect(() => {
-  //   loginUsers();
-  // }, []);
 
-  // useEffect(() => {
-  //   formSchema.isValid(formValues).then((valid) => {
-  //     setDisabled(!valid);
-  //   });
-  // }, [formValues]);
+  useEffect(() => {
+    loginSchema.isValid(formValues).then((valid) => {
+      setDisabled(!valid);
+    });
+  }, [formValues]);
 
   return (
+    
     <div className="login container">
       <form className="form container" onSubmit={onSubmit}>
         <div id="login-title">

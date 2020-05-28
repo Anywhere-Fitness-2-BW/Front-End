@@ -26,85 +26,34 @@ export default function Registration() {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
-
-  // const postNewUser = (newUser) => {
-  //   axios
-  //     .post("https://anytime-fitness.herokuapp.com/api/auth/register", newUser)
-  //     .then((res) => {
-  //       setUser([res.data, ...users]);
-  //     })
-  //     .catch((err) => {
-  //       console.log(err);
-  //     });
-  //   setFormValues({
-  //     name: "",
-  //     email: "",
-  //     username: "",
-  //     password: "",
-  //     role: "",
-  //   });
-  // .finally(() => {
-  //   setFormValues(initialFormValues);
-  // });
-  // };
-
   const onInputChange = (evt) => {
-    // const name = evt.target.name;
-    // const value = evt.target.value;
+    const name = evt.target.name;
+    const value = evt.target.value;
+
+    // setFormValues({
+    //   ...formValues,
+    //   [evt.target.name]: evt.target.value,
+    yup
+      .reach(formSchema, name)
+      .validate(value)
+      .then((valid) => {
+        setFormErrors({
+          ...formErrors,
+          [name]: "",
+        });
+      })
+      .catch((err) => {
+        setFormErrors({
+          ...formErrors,
+          [name]: err.errors[0],
+        });
+      });
     setFormValues({
       ...formValues,
-      [evt.target.name]: evt.target.value,
+      [name]: value,
     });
   };
-  //   yup
-  //     .reach(formSchema, name)
-  //     .validate(value)
-  //     .then((valid) => {
-  //       setFormErrors({
-  //         ...formErrors,
-  //         [name]: "",
-  //       });
-  //     })
-  //     .catch((err) => {
-  //       setFormErrors({
-  //         ...formErrors,
-  //         [name]: err.errors[0],
-  //       });
-  //     });
-  //   setFormValues({
-  //     ...formValues,
-  //     [name]: value,
-  //   });
-  // };
 
-  // const onSubmit = (evt) => {
-  //   evt.preventDefault();
-
-  //   const newUser = {
-  //     // name: formValues.name.trim(),
-  //     // email: formValues.email.trim(),
-  //     // username: formValues.username.trim(),
-  //     // password: formValues.password.trim(),
-  //     // role: formValues.role.trim(),
-
-  //     name: formValues.name,
-  //     email: formValues.email,
-  //     username: formValues.username,
-  //     password: formValues.password,
-  //     role: formValues.role,
-  //   };
-  //   postNewUser(newUser);
-  // };
-
-  // useEffect(() => {
-  //   // getUsers();
-  // }, []);
-
-  // useEffect(() => {
-  //   formSchema.isValid(formValues).then((valid) => {
-  //     setDisabled(!valid);
-  //   });
-  // }, [formValues]);
   const onSubmit = (evt) => {
     evt.preventDefault();
     axios
@@ -135,13 +84,7 @@ export default function Registration() {
       <div id="register-title">
         <h2>Registration</h2>
       </div>
-      <div className="errors">
-        <div>{formErrors.name}</div>
-        <div>{formErrors.email}</div>
-        <div>{formErrors.username}</div>
-        <div>{formErrors.password}</div>
-        <div>{formErrors.role}</div>
-      </div>
+
       <div className="form inputs">
         <h4>General Information</h4>
         <form className="form container" onSubmit={onSubmit}>
@@ -194,6 +137,13 @@ export default function Registration() {
             />
           </label>
           <div id="register-sub">
+            <div className="errors">
+              <div>{formErrors.name}</div>
+              <div>{formErrors.email}</div>
+              <div>{formErrors.username}</div>
+              <div>{formErrors.password}</div>
+              <div>{formErrors.role}</div>
+            </div>
             <button className="submit">Submit</button>
           </div>
         </form>
