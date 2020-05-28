@@ -26,6 +26,7 @@ export default function Registration() {
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
 
+
   // const postNewUser = (newUser) => {
   //   axios
   //     .post("https://anytime-fitness.herokuapp.com/api/auth/register", newUser)
