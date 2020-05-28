@@ -114,7 +114,7 @@ function App() {
 
             <PrivateRoute path="/client" component={Client} />
             <PrivateRoute path="/instructor" component={Instructor} />
-            {/* <Route path="/createclass" component={CreateClass} /> */}
+            <Route path="/createclass" component={CreateClass} />
             <Route path="/editclass/:id" component={EditClass} />
             <Route exact path="/">
               <Home />

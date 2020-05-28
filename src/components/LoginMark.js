@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import formSchema from "../validation/formSchema";
 import axios from "axios";
 import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 const initialFormValues = {
   username: "",
@@ -20,6 +21,7 @@ export default function Login() {
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
   const [disabled, setDisabled] = useState(initialDisabled);
+  const { push } = useHistory();
 
   // const loginUsers = () => {
 
