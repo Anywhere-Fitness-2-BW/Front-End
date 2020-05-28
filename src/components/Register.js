@@ -27,18 +27,6 @@ export default function Registration() {
   const [disabled, setDisabled] = useState(initialDisabled);
 
 
-
-  // const getUsers = () => {
-  //     axios
-  //       .get("https://anytime-fitness.herokuapp.com/api/")
-  //       .then((res) => {
-  //         setUser(res.data);
-  //         console.log(res.data)
-  //       })
-  //       .catch((err) => {
-  //         console.log(err);
-  //       });
-  //   };
   const postNewUser = (newUser) => {
     axios
       .post("https://anytime-fitness.herokuapp.com/api/auth/register", newUser)
