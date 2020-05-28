@@ -3,7 +3,7 @@ import DashboardClass from './DashboardClass';
 import { useHistory } from 'react-router-dom';
 import { ClassListContext } from '../../../contexts/ClassListContext';
 
-const Dashboard = props =>{
+const ClientDashboard = props =>{
 
     const history = useHistory()
     // const [classList, setClassList] = useState([])
@@ -31,4 +31,4 @@ const Dashboard = props =>{
     )
 }
 
-export default Dashboard
+export default ClientDashboard
