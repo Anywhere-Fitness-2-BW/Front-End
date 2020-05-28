@@ -75,10 +75,6 @@ export default function Login() {
         <div id="login-title">
           <h2>Log In</h2>
         </div>
-        <div className="errors">
-          <div>{formErrors.username}</div>
-          <div>{formErrors.password}</div>
-        </div>
         <div className="login form">
           <h4>Login Information</h4>
           <label>
@@ -102,6 +98,10 @@ export default function Login() {
           <div id="login-btn">
             <button className="submit">Login</button>
           </div>
+          <div className="errors">
+          <div>{formErrors.username}</div>
+          <div>{formErrors.password}</div>
+        </div>
         </div>
       </form>
     </div>

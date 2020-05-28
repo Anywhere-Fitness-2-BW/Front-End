@@ -80,11 +80,10 @@ export default function Registration() {
   console.log(formValues, "user data");
   return (
     <div className="registration">
-      {/* <form className="form container" onSubmit={onSubmit}> */}
+      <div id='register-container'>
       <div id="register-title">
         <h2>Registration</h2>
       </div>
-
       <div className="form inputs">
         <h4>General Information</h4>
         <form className="form container" onSubmit={onSubmit}>
@@ -147,6 +146,7 @@ export default function Registration() {
             <button className="submit">Submit</button>
           </div>
         </form>
+      </div>
       </div>
     </div>
   );
