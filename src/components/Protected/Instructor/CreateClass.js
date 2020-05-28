@@ -3,7 +3,6 @@ import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 
 const CreateClass = (props) => {
   const [createClassForm, setCreateClassForm] = useState({
-    id: Date.now(),
     name: "",
     instructor_name: "",
     type: "",
@@ -30,32 +29,23 @@ const CreateClass = (props) => {
   // const onSubmit = (event) => {
   //   event.preventDefault();
   //   axiosWithAuth()
-  //     .put(`/api/auth/instructor`, )
+  //     .post(`/api/auth/instructor`)
   //     .then((res) => {
-  //       const mergeArrayWithObject = (array, object) =>
-  //         //check to make sure array is there
-  //         array &&
-  //         //map through the array
-  //         array.map((object) =>
-  //           //make sure edited movie id matches current object in the array - if true replace movie object otherwise use original array object
-  //           object.id === array.id ? object : array
-  //         );
-  //       props.setClassList(mergeArrayWithObject(, ));
-  //       push(``);
+
   //     })
   //     .catch((err) => console.log(err));
   // };
 
-  useEffect(() => {
-    axiosWithAuth()
-      .get(`api/auth/users/classes`)
-      .then((res) => {
-        console.log(res.data, "classes");
-      })
-      .catch((error) => {
-        console.log("the data was not returned", error);
-      });
-  }, []);
+  // useEffect(() => {
+  //   axiosWithAuth()
+  //     .get(`api/auth/users/classes`)
+  //     .then((res) => {
+  //       console.log(res.data, "classes");
+  //     })
+  //     .catch((error) => {
+  //       console.log("the data was not returned", error);
+  //     });
+  // }, []);
 
   return (
     <div className="createContainer">
