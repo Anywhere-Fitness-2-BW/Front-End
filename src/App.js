@@ -3,14 +3,19 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { ClassListContext } from './contexts/ClassListContext';
 import { NavContext } from './contexts/NavContext';
+import { ClientContext } from './contexts/ClientContext'
 
 import PrivateRoute from './components/Protected/PrivateRoute';
 
 import Home from './components/Home';
 import Login from './components/Login';
 import Navigation from './components/Navigation';
-import Client from './components/Protected/Client/Client';
 import Instructor from './components//Protected/Instructor/Instructor';
+import Client from "./components/Protected/Client/Client";
+import Dashboard from "./components/Protected/Client/Dashboard";
+
+import { useClient } from './hooks/useClient';
+
 
 const sampleClassList = [
   {
@@ -89,33 +94,54 @@ const sampleClassList = [
 function App() {
 
   const [classList, setClassList] = useState(sampleClassList)
+
+  // Login
   const [isClient, setIsClient] = useState(false)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const [initialSearch,
+    isSearching, setIsSearching, 
+    search, setSearch,
+    searchResults, setSearchResults,
+    selectedClass, setSelectedClass,
+    searchFilter, setSearchFilter] = useClient()
+  
 
   return (
     <div className="App">
       <ClassListContext.Provider value={{classList, setClassList, isClient, setIsClient,}}>
         <Router>
-          <NavContext.Provider value={{isLoggedIn, setIsLoggedIn}} >
 
+          <NavContext.Provider value={{isLoggedIn, setIsLoggedIn, isClient, setIsClient}} >
             <Navigation />
-            <Route path="/login">
-              <Login /> {/* Dummy Login page, replace with REACT I's Login*/}
-            </Route>
+              <Route path="/login">
+                <Login /> {/* Dummy Login page, replace with REACT I's Login*/}
+              </Route>
+          </NavContext.Provider>
 
-            <PrivateRoute path="/client" component={Client} />
-            <PrivateRoute path="/instructor" component={Instructor} />
-            <Route exact path="/">
-              <Home />
-            </Route>
+          <ClientContext.Provider value={{
+                initialSearch,
+                isSearching, setIsSearching, 
+                search, setSearch,
+                searchResults, setSearchResults,
+                selectedClass, setSelectedClass,
+                searchFilter, setSearchFilter,
+                }}>
 
-        </NavContext.Provider>
+                <PrivateRoute exact path="/client/class_search" component={Client} />
+                <PrivateRoute exact path="/client/class/:id" component={Client} />
+                <PrivateRoute exact path="/client/dashboard" component={Dashboard} />
+                
+          </ClientContext.Provider>
+            
+          <PrivateRoute path="/instructor" component={Instructor} />
 
-        </Router>
-
-      
-    </ClassListContext.Provider>
-
+          <Route exact path="/">
+            <Home />
+          </Route>
+          
+        </Router>      
+      </ClassListContext.Provider>
     </div>
   );
 }

@@ -26,7 +26,7 @@ const Login = props =>{
         event.preventDefault()
         if(credential.username === 'student'){
             setIsClient(true)
-            push("/client")
+            push("/client/class_search")
         }if(credential.username === 'instructor'){
             setIsClient(false)
             push("/instructor")
