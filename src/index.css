@@ -1,10 +1,10 @@
+/* font-family: 'Nunito Sans', sans-serif;
+font-family: 'Poller One', cursive; */
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color:#F0EBD8;
+  color:#0D1321;
 }
 
 code {
@@ -17,23 +17,24 @@ h1{
   font-size:3.5rem;
   padding:2rem;
 }
+
 #navigation{
   text-align:center;
   padding:2rem;
 }
 a{
   border-radius: 2.5rem;
-  box-shadow: 0px 1px 6px -2px black;
+  box-shadow: 0px 1px 6px -2px #0D1321;
   font-size:1.4rem;
   margin-right:1rem;
-  background-color: black;
+  background-color: #748CAB;
   color:white;
   text-shadow: 2px 2px 6px white;
   text-decoration: none;
 }
 a:hover{
-  background-color: white;
-  color:black;
+  background-color: #3E5C76;
+  color:white;
 }
 .registration{
   border: 1px solid gray;
@@ -77,6 +78,7 @@ label {
   margin:0 auto;
   font-size:2rem;
   text-align:center;
+ 
 }
 #register-title{
   width:100%;
@@ -87,13 +89,17 @@ label {
 button{
   color:white;
   font-size:1.2rem;
-  background-color:black;
+  background-color:#748CAB;
   height: 2rem;
   width: 6rem;
   border-radius: 2.5rem;
-  border: 3px solid gray;
+  border: 3px solid white;
   margin-bottom:2rem;
   text-align:center;
+}
+button:hover{
+  background-color: #3E5C76;
+  color:white;
 }
 #login-btn{
   margin-top:1rem;
@@ -108,4 +114,15 @@ h4{
 #register-sub{
   margin: 0 auto;
   padding:1rem;
+}
+#logo{
+  font-family:'Poller One', cursive;
+  font-size:4rem;
+  padding:2rem;
+  border-radius: 2.5rem;
+  width:65%;
+  margin: 0 auto;
+  background-color: #1D2D44;
+  color:white;
+  text-shadow: 2px 2px 6px white;
 }

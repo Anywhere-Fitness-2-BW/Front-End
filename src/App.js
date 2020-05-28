@@ -7,7 +7,7 @@ import { NavContext } from "./contexts/NavContext";
 import PrivateRoute from "./components/Protected/PrivateRoute";
 
 import Home from "./components/Home";
-import Login from "./components/Login";
+import Logo from "./components/Logo";
 import Navigation from "./components/Navigation";
 import Client from "./components/Protected/Client/Client";
 import Instructor from "./components//Protected/Instructor/Instructor";
@@ -108,6 +108,7 @@ function App() {
           <NavContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
             <Navigation />
             <Route path="/login">
+              <Logo />
               <LoginMark />
               <Register />
             </Route>
