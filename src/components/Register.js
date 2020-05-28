@@ -106,9 +106,6 @@ export default function Registration() {
         <form className='form container' onSubmit={onSubmit}>
           <div id='register-title'>
             <h2>Registration</h2>
-            <button disabled={disabled} className="submit">
-              Submit
-            </button>
           </div>
           <div className="errors">
             <div>{formErrors.name}</div>
@@ -163,6 +160,11 @@ export default function Registration() {
                 type="text"
               />
             </label>
+            <div id='register-sub'>
+            <button disabled={disabled} className="submit">
+              Submit
+            </button>
+            </div>
           </div>
         </form>
     </div>
