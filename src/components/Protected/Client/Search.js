@@ -1,15 +1,37 @@
 import React, {  useContext, useEffect } from 'react';
-import { ClassListContext } from '../../../contexts/ClassListContext';
-import SearchCard from './SearchCard';
 import { useHistory } from 'react-router-dom';
+
 import { ClientContext } from '../../../contexts/ClientContext';
+import { ClassListContext } from '../../../contexts/ClassListContext';
+
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
+
+import SearchCard from './SearchCard';
 
 const Search= props =>{
 
     const { push } = useHistory()
-    const { classList } = useContext(ClassListContext)
+    const { classList, setClassList } = useContext(ClassListContext)
     const { initialSearch, setIsSearching, search, searchResults, setSearchResults, setSelectedClass } = useContext(ClientContext)
 
+    const fetchClientClassList = ()=>{
+        axiosWithAuth()
+            .get('/api/auth/users/classes')
+            .then(res =>{
+                console.log(res.data)
+                // const newClassList = res.data.data
+                // console.log(res.data.data)
+                setClassList(res.data.data)
+            })
+            .catch(err =>{
+                console.log(err)
+            })
+    }
+
+    useEffect(()=>{
+        fetchClientClassList()
+    },[])
+    
     useEffect(()=>{
         // display search result
         const searchChange = Object.entries(search).filter( attribute =>{
@@ -163,7 +185,7 @@ const Search= props =>{
             return null
         })
         setSearchResults(newSearchResults)
-    },[search])
+    },[search, classList])
 
     const toggleSeeMore = info =>{
         setIsSearching(false)

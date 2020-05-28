@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import loginSchema from "../validation/loginSchema";
 // import axios from "axios";
 import * as yup from "yup";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { useHistory } from "react-router-dom";
+import { NavContext } from "../contexts/NavContext";
 
 const initialFormValues = {
   username: "",
@@ -17,6 +18,8 @@ const initialDisabled = true;
 const initialUsers = [];
 
 export default function Login() {
+
+  const { isClient, setIsClient, isLoggedIn, setIsLoggedIn } = useContext(NavContext)
   const [users, setUser] = useState(initialUsers);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -54,7 +57,16 @@ export default function Login() {
       .post(`/api/auth/login`, formValues)
       .then((response) => {
         console.log(response.data, "resdata");
-        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("token", response.data.token)
+        setIsLoggedIn(true)
+        if(response.data.role === "student"){
+          setIsClient(true)
+          push('/client/class_search')
+        }
+        if(response.data.role === "instructor"){
+          setIsClient(false)
+          push('/createclass')
+        }
       })
       .catch((error) => {
         console.log(error);
