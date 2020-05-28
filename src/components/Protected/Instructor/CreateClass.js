@@ -3,7 +3,6 @@ import axiosWithAuth from "../../../utils/axiosWithAuth";
 import { ClassListContext } from "../../../contexts/ClassListContext";
 
 const CreateClass = (props) => {
-  const { classList, setClassList } = useContext(ClassListContext);
 
   const [createClassForm, setCreateClassForm] = useState({
     id: Date.now(),
@@ -19,30 +18,34 @@ const CreateClass = (props) => {
   });
 
   const handleChange = (event) => {
+    let value = event.target.value;
+    if (event.target.name === "max"){
+      value = parseInt(value)
+    }
     setCreateClassForm({
       ...createClassForm,
       [event.target.name]: event.target.value,
     });
   };
 
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   axiosWithAuth()
-  //     .put(`/api/auth/instructor`, )
-  //     .then((res) => {
-  //       const mergeArrayWithObject = (array, object) =>
-  //         //check to make sure array is there
-  //         array &&
-  //         //map through the array
-  //         array.map((object) =>
-  //           //make sure edited movie id matches current object in the array - if true replace movie object otherwise use original array object
-  //           object.id === array.id ? object : array
-  //         );
-  //       props.setClassList(mergeArrayWithObject(, ));
-  //       push(``);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    axiosWithAuth()
+      .put(`/api/auth/instructor`, createClassForm)
+      .then((res) => {
+        const mergeArrayWithObject = (array, object) =>
+          //check to make sure array is there
+          array &&
+          //map through the array
+          array.map((object) =>
+            //make sure edited movie id matches current object in the array - if true replace movie object otherwise use original array object
+            object.id === array.id ? object : array
+          );
+        props.setClassList(mergeArrayWithObject(, ));
+        push(``);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="createContainer">
