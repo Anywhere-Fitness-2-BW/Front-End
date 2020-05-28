@@ -1,48 +1,59 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import axiosWithAuth from "../../../utils/axiosWithAuth";
+import { useParams, useHistory } from "react-router-dom";
 import { ClassListContext } from "../../../contexts/ClassListContext";
 
-const CreateClass = (props) => {
-  const { classList, setClassList } = useContext(ClassListContext);
+const formDefault = {
+  name: "",
+  type: "",
+  coursDetails: "",
+  date: "",
+  time: "",
+  duration: "",
+  intensity: "",
+  location: "",
+  max: "",
+};
 
-  const [createClassForm, setCreateClassForm] = useState({
-    id: Date.now(),
-    name: "",
-    type: "",
-    coursDetails: "",
-    date: "",
-    time: "",
-    duration: "",
-    intensity: "",
-    location: "",
-    max: "",
-  });
+const EditClass = (props) => {
+  console.log(props, "EditClass");
+  const [editClass, setEditClass] = useState(formDefault);
+  const { id } = useParams();
+  const { push } = useHistory();
+
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`/api/auth/users/classes/${id}`)
+      .then((res) => {
+        setEditClass(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
 
   const handleChange = (event) => {
-    setCreateClassForm({
-      ...createClassForm,
-      [event.target.name]: event.target.value,
+    event.persist();
+    let value = event.target.value;
+    if (event.target.name === "max") {
+      value = parseInt(value, 10);
+    }
+    setEditClass({
+      ...editClass,
+      [event.target.name]: value,
     });
   };
 
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   axiosWithAuth()
-  //     .put(`/api/auth/instructor`, )
-  //     .then((res) => {
-  //       const mergeArrayWithObject = (array, object) =>
-  //         //check to make sure array is there
-  //         array &&
-  //         //map through the array
-  //         array.map((object) =>
-  //           //make sure edited movie id matches current object in the array - if true replace movie object otherwise use original array object
-  //           object.id === array.id ? object : array
-  //         );
-  //       props.setClassList(mergeArrayWithObject(, ));
-  //       push(``);
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
+  const onSubmit = (event) => {
+    event.preventDefault();
+    axiosWithAuth()
+      .put(`api/auth/instructor/${id}`, editClass)
+      .then((res) => {
+        const mergeArrayWithObject = (arr, obj) =>
+          arr && arr.map((t) => (t.id === obj.id ? obj : t));
+        updateColors(mergeArrayWithObject(colors, res.data));
+        push(`classes/${id}`);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div className="createContainer">
@@ -54,7 +65,7 @@ const CreateClass = (props) => {
             id="name"
             type="text"
             name="name"
-            value={createClassForm.name}
+            value={editClass.name}
             onChange={handleChange}
             required
           />
@@ -103,7 +114,7 @@ const CreateClass = (props) => {
             type="text"
             name="date"
             pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}"
-            value={createClassForm.date}
+            value={editClass.date}
             onChange={handleChange}
             required
           />
@@ -115,7 +126,7 @@ const CreateClass = (props) => {
             id="time"
             type="time"
             name="time"
-            value={createClassForm.time}
+            value={editClass.time}
             onChange={handleChange}
             required
           />
@@ -127,7 +138,7 @@ const CreateClass = (props) => {
             id="duration"
             type="number"
             name="duration"
-            value={createClassForm.duration}
+            value={editClass.duration}
             onChange={handleChange}
             required
           />
@@ -138,6 +149,7 @@ const CreateClass = (props) => {
           <select
             id="intensity"
             name="intensity"
+            value={editClass.intensity}
             onChange={handleChange}
             required
           >
@@ -154,7 +166,7 @@ const CreateClass = (props) => {
             id="location"
             name="location"
             type="text"
-            value={createClassForm.location}
+            value={editClass.location}
             onChange={handleChange}
             required
           />
@@ -166,7 +178,7 @@ const CreateClass = (props) => {
             id="max"
             name="max"
             type="number"
-            value={createClassForm.max}
+            value={editClass.max}
             onChange={handleChange}
             required
           />
@@ -177,4 +189,4 @@ const CreateClass = (props) => {
   );
 };
 
-export default CreateClass;
+export default EditClass;
