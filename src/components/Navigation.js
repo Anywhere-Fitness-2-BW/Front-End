@@ -4,11 +4,14 @@ import { NavContext } from '../contexts/NavContext';
 
 const Navigation = props =>{
 
-    const { isLoggedIn, setIsLoggedIn} = useContext(NavContext)
+    const { isLoggedIn, setIsLoggedIn, isClient, setIsClient } = useContext(NavContext)
 
     const handleLogout = () =>{
         localStorage.clear()
         setIsLoggedIn(false)
+        if(isClient){
+            setIsClient(false)
+        }
     }
 
     return(
@@ -19,7 +22,13 @@ const Navigation = props =>{
                     <NavLink to="/login" >Login</NavLink>
                 </>
             )}
-            {isLoggedIn && (
+            {isLoggedIn && isClient && (
+                <>
+                    <NavLink to="/client/dashboard">Dashboard</NavLink>
+                    <NavLink to="/" onClick={handleLogout}>Logout</NavLink>
+                </>
+            )}
+            {isLoggedIn && !isClient && (
                 <>
                     <NavLink to="/" onClick={handleLogout}>Logout</NavLink>
                 </>

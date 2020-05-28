@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { ClassListContext } from "./contexts/ClassListContext";
-import { NavContext } from "./contexts/NavContext";
+import { ClassListContext } from './contexts/ClassListContext';
+import { NavContext } from './contexts/NavContext';
+import { ClientContext } from './contexts/ClientContext'
 
 import PrivateRoute from "./components/Protected/PrivateRoute";
 
-import Home from "./components/Home";
+import Home from './components/Home';
 import Logo from "./components/Logo";
-import Navigation from "./components/Navigation";
-import Client from "./components/Protected/Client/Client";
-import Instructor from "./components//Protected/Instructor/Instructor";
-import CreateClass from "./components/Protected/Instructor/CreateClass";
-import EditClass from "./components/Protected/Instructor/EditClass";
 import LoginMark from "./components/LoginMark";
 import Register from "./components/Register";
+import Navigation from './components/Navigation';
+import CreateClass from "./components/Protected/Instructor/CreateClass";
+import EditClass from "./components/Protected/Instructor/EditClass";
+import Client from "./components/Protected/Client/Client";
+import ClientDashboard from "./components/Protected/Client/ClientDashboard";
+
+import { useClient } from './hooks/useClient';
 
 const sampleClassList = [
   {
@@ -95,9 +98,20 @@ const sampleClassList = [
 ];
 
 function App() {
-  const [classList, setClassList] = useState(sampleClassList);
-  const [isClient, setIsClient] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const [classList, setClassList] = useState(sampleClassList)
+
+  // Login
+  const [isClient, setIsClient] = useState(false)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+
+  const [initialSearch,
+    isSearching, setIsSearching, 
+    search, setSearch,
+    searchResults, setSearchResults,
+    selectedClass, setSelectedClass,
+    searchFilter, setSearchFilter] = useClient()
+  
 
   return (
     <div className="App">
@@ -105,22 +119,41 @@ function App() {
         value={{ classList, setClassList, isClient, setIsClient }}
       >
         <Router>
-          <NavContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
-            <Navigation />
-            <Route path="/login">
-              <Logo />
-              <LoginMark />
-              <Register />
-            </Route>
 
-            <PrivateRoute path="/client" component={Client} />
-            <PrivateRoute path="/instructor" component={Instructor} />
-            <Route path="/createclass" component={CreateClass} />
-            <Route path="/editclass/:id" component={EditClass} />
-            <Route exact path="/">
-              <Home />
-            </Route>
+          <NavContext.Provider value={{isLoggedIn, setIsLoggedIn, isClient, setIsClient}} >
+            <Navigation />
+              <Route path="/login">
+                <Logo />
+                <LoginMark />
+                <Register />
+              </Route>
           </NavContext.Provider>
+
+          <ClientContext.Provider value={{
+                initialSearch,
+                isSearching, setIsSearching, 
+                search, setSearch,
+                searchResults, setSearchResults,
+                selectedClass, setSelectedClass,
+                searchFilter, setSearchFilter,
+                }}>
+
+                {/* <PrivateRoute exact path="/client/class_search" component={Client} />
+                <PrivateRoute exact path="/client/class/:id" component={Client} />
+                <PrivateRoute exact path="/client/dashboard" component={ClientDashboard} /> */}
+                <Route exact path="/client/class_search" component={Client} /> */}  {/* TEST */}
+                <Route exact path="/client/class/:id" component={Client} /> */} {/* TEST */}
+                <Route exact path="/client/dashboard" component={ClientDashboard} /> */} {/* TEST */}
+                
+          </ClientContext.Provider>
+            
+          <Route path="/createclass" component={CreateClass} />
+          <Route path="/editclass/:id" component={EditClass} />
+
+          <Route exact path="/">
+            <Home />
+          </Route>
+          
         </Router>
       </ClassListContext.Provider>
     </div>
