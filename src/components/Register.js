@@ -102,14 +102,13 @@ export default function Registration() {
   }, [formValues]);
 
   return (
-    <div className="registration container">
-      <div>
+    <div className="registration">
         <form className='form container' onSubmit={onSubmit}>
-          <div>
-            <h2>Sign Up</h2>
+          <div id='register-title'>
+            <h2>Registration</h2>
             <button disabled={disabled} className="submit">
               Submit
-        </button>
+            </button>
           </div>
           <div className="errors">
             <div>{formErrors.name}</div>
@@ -166,7 +165,6 @@ export default function Registration() {
             </label>
           </div>
         </form>
-      </div>
     </div>
   );
 }

@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import './App.css';
 
-import NavBar from './components/Navbar'
+
 import Registration from './components/Register'
 import Login from './components/Login.js'
 
@@ -18,9 +18,10 @@ function App() {
    <Router>
     <div>
       <h1>Anywhere Fitness</h1>
-        <NavBar/>
+      <div id='navigation'>
         <Link to='/'>Sign Up</Link>
         <Link to='/login'>Login</Link>
+       </div> 
         <Switch>
             <Route exact path='/'>
                 <Registration />

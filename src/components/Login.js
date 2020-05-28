@@ -72,19 +72,16 @@ export default function Login() {
 
   return (
     <div className="login container">
-      <div>
         <form className="form container" onSubmit={onSubmit}>
-          <div>
+          <div id='login-title'>
             <h2>Log In</h2>
-            <button disabled={disabled} className="submit">
-              Login
-          </button>
+            
           </div>
           <div className="errors">
             <div>{formErrors.username}</div>
             <div>{formErrors.password}</div>
           </div>
-          <div className="login form inputs">
+          <div className="login form">
             <h4>Login Information</h4>
             <label>
               Username:
@@ -104,9 +101,13 @@ export default function Login() {
                 type="text"
               />
             </label>
+            <div id='login-btn'>
+            <button disabled={disabled} className="submit">
+              Login
+          </button>
+          </div>
           </div>
         </form>
-      </div>
     </div>
   );
 }
