@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 const CreateClass = (props) => {
+  const { push } = useHistory();
   const [createClassForm, setCreateClassForm] = useState({
     name: "",
     instructor_name: "",
@@ -17,7 +19,7 @@ const CreateClass = (props) => {
   const handleChange = (event) => {
     event.persist();
     let value = event.target.value;
-    if (event.target.name === "max") {
+    if (event.target.name === "max_size" || event.target.name === "duration") {
       value = parseInt(value, 10);
     }
     setCreateClassForm({
@@ -26,31 +28,43 @@ const CreateClass = (props) => {
     });
   };
 
-  // const onSubmit = (event) => {
-  //   event.preventDefault();
-  //   axiosWithAuth()
-  //     .post(`/api/auth/instructor`)
-  //     .then((res) => {
+  const onSubmit = (event) => {
+    event.preventDefault();
+    axiosWithAuth()
+      .post(`/api/auth/instructor/classes`, createClassForm)
+      .then((res) => {
+        console.log(res, "res");
+        // push("/");
+      })
+      .catch((err) => console.log(err));
+    setCreateClassForm({
+      name: "",
+      instructor_name: "",
+      type: "",
+      intensity: "",
+      location: "",
+      date: "",
+      max_size: "",
+      duration: "",
+      signedUp: false,
+    });
+  };
 
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
-
-  // useEffect(() => {
-  //   axiosWithAuth()
-  //     .get(`api/auth/users/classes`)
-  //     .then((res) => {
-  //       console.log(res.data, "classes");
-  //     })
-  //     .catch((error) => {
-  //       console.log("the data was not returned", error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    axiosWithAuth()
+      .get(`api/auth/users/classes`)
+      .then((res) => {
+        console.log(res.data, "classes");
+      })
+      .catch((error) => {
+        console.log("the data was not returned", error);
+      });
+  }, []);
 
   return (
     <div className="createContainer">
       <h3>Create a class</h3>
-      <form>
+      <form onSubmit={onSubmit}>
         <label htmlFor="name">
           Class Name
           <input
@@ -76,38 +90,26 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="type">
-          Class Type
-          <select id="type" name="type" onChange={handleChange} required>
-            <option></option>
-            <option value={1}>Aerobic</option>
-            <option value={2}>Physical</option>
-            <option value={3}>Running</option>
-            <option value={4}>Lifting</option>
-            <option value={5}>Yoga</option>
-            <option value={6}>HIIT</option>
-            <option value={7}>Bootcamp</option>
-            <option value={8}>Barre</option>
-            <option value={9}>Conditioning</option>
-            <option value={10}>Stretch</option>
-            <option value={11}>Zumba</option>
-            <option value={12}>Sport</option>
-            <option value={13}>Pilates</option>
-          </select>
+          Class Type - I.e - Boxing, HIIT, etc.
+          <input
+            id="type"
+            type="text"
+            name="type"
+            value={createClassForm.type}
+            onChange={handleChange}
+            required
+          />
         </label>
 
         <label htmlFor="intensity">
-          Class intensity level
-          <select
+          Class intensity level - Low, Medium or High
+          <input
             id="intensity"
             name="intensity"
+            value={createClassForm.intensity}
             onChange={handleChange}
             required
-          >
-            <option></option>
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Expert">Expert</option>
-          </select>
+          ></input>
         </label>
 
         <label htmlFor="location">
@@ -123,25 +125,25 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="date">
-          Start Date - Required Format mm-dd-yyyy
+          Start Date - Required Format mm/dd/yyyy
           <input
             id="date"
             type="text"
             name="date"
-            pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])-(0[1-9]|1[012])-[0-9]{4}"
+            pattern="(0[1-9]|1[0-9]|2[0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}"
             value={createClassForm.date}
             onChange={handleChange}
             required
           />
         </label>
 
-        <label htmlFor="max">
+        <label htmlFor="max_size">
           Maximum # of participants
           <input
-            id="max"
-            name="max"
+            id="max_size"
+            name="max_size"
             type="number"
-            value={createClassForm.max}
+            value={createClassForm.max_size}
             onChange={handleChange}
             required
           />
@@ -151,7 +153,7 @@ const CreateClass = (props) => {
           Class Duration in minutes
           <input
             id="duration"
-            type="number"
+            type="float"
             name="duration"
             value={createClassForm.duration}
             onChange={handleChange}
