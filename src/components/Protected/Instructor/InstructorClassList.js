@@ -8,27 +8,27 @@ const InstructorClassList = () => {
   const { push } = useHistory();
 
   useEffect(() => {
-    axiosWithAuth()
-      .get(`api/auth/users/classes`)
-      .then((res) => {
-        // console.log(res.data, "classes");
-        setClassList(res.data.data);
-      })
-      .catch((error) => {
-        console.log("the data was not returned", error);
-      });
+    if (classList.length !== setClassList.length)
+      axiosWithAuth()
+        .get(`api/auth/users/classes`)
+        .then((res) => {
+          setClassList(res.data.data);
+        })
+        .catch((error) => {
+          console.log("the data was not returned", error);
+        });
   }, []);
 
-  //   console.log(classList, "cl");
-
   return (
-    <div>
-      <div>Classes</div>
-      <button className="classBtn" onClick={() => push(`/createclass`)}>
-        Create Class
-      </button>
+    <div className="cardContainer">
+      <div className="cardList">
+        <h1 className="insH1">Classes</h1>
+        <button className="navBtn" onClick={() => push(`/createclass`)}>
+          Create Class
+        </button>
+      </div>
+
       {classList.map((item) => {
-        // console.log(item, "item");
         return <InstructorClass key={item.id} classList={item} />;
       })}
     </div>

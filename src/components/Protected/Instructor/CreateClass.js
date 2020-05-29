@@ -62,11 +62,11 @@ const CreateClass = (props) => {
   }, []);
 
   return (
-    <div className="class">
-      <h3>Create a class</h3>
+    <div className="class cards">
+      <h2>Create your class</h2>
       <form onSubmit={onSubmit}>
         <label htmlFor="name">
-          Class Name
+          <p>Class Name</p>
           <input
             id="name"
             type="text"
@@ -78,7 +78,7 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="instructor_name">
-          Instructor Name
+          <p>Instructor Name</p>
           <input
             id="instructor_name"
             type="text"
@@ -90,7 +90,7 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="type">
-          Class Type - I.e - Boxing, HIIT, etc.
+          <p>Class Type - i.e - Boxing, HIIT, etc.</p>
           <input
             id="type"
             type="text"
@@ -102,10 +102,11 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="intensity">
-          Class intensity level - Low, Medium or High
+          <p>Class intensity level - Low, Medium or High</p>
           <input
             id="intensity"
             name="intensity"
+            type="text"
             value={createClassForm.intensity}
             onChange={handleChange}
             required
@@ -113,7 +114,7 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="location">
-          Class Location
+          <p>Class Location</p>
           <input
             id="location"
             name="location"
@@ -125,7 +126,7 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="date">
-          Start Date - Required Format mm/dd/yyyy
+          <p>Start Date - Required Format mm/dd/yyyy</p>
           <input
             id="date"
             type="text"
@@ -138,7 +139,7 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="max_size">
-          Maximum # of participants
+          <p>Maximum # of participants</p>
           <input
             id="max_size"
             name="max_size"
@@ -150,10 +151,10 @@ const CreateClass = (props) => {
         </label>
 
         <label htmlFor="duration">
-          Class Duration in minutes
+          <p>Class Duration in minutes</p>
           <input
             id="duration"
-            type="float"
+            type="number"
             name="duration"
             value={createClassForm.duration}
             onChange={handleChange}
@@ -161,7 +162,7 @@ const CreateClass = (props) => {
           />
         </label>
 
-        <button>Submit</button>
+        <button className="navBtn">Submit</button>
       </form>
     </div>
   );

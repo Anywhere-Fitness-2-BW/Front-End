@@ -18,8 +18,9 @@ const initialDisabled = true;
 const initialUsers = [];
 
 export default function Login() {
-
-  const { isClient, setIsClient, isLoggedIn, setIsLoggedIn } = useContext(NavContext)
+  const { isClient, setIsClient, isLoggedIn, setIsLoggedIn } = useContext(
+    NavContext
+  );
   const [users, setUser] = useState(initialUsers);
   const [formValues, setFormValues] = useState(initialFormValues);
   const [formErrors, setFormErrors] = useState(initialFormErrors);
@@ -57,22 +58,21 @@ export default function Login() {
       .post(`/api/auth/login`, formValues)
       .then((response) => {
         console.log(response.data, "resdata");
-        localStorage.setItem("token", response.data.token)
-        setIsLoggedIn(true)
-        if(response.data.role === "student"){
-          setIsClient(true)
-          push('/client/class_search')
+        localStorage.setItem("token", response.data.token);
+        setIsLoggedIn(true);
+        if (response.data.role === "student") {
+          setIsClient(true);
+          push("/client/class_search");
         }
-        if(response.data.role === "instructor"){
-          setIsClient(false)
-          push('/createclass')
+        if (response.data.role === "instructor") {
+          setIsClient(false);
+          push("/instructorlist");
         }
       })
       .catch((error) => {
         console.log(error);
       });
   };
-
 
   useEffect(() => {
     loginSchema.isValid(formValues).then((valid) => {
@@ -81,7 +81,6 @@ export default function Login() {
   }, [formValues]);
 
   return (
-    
     <div className="login container">
       <form className="form container" onSubmit={onSubmit}>
         <div id="login-title">
@@ -111,9 +110,9 @@ export default function Login() {
             <button className="submit">Login</button>
           </div>
           <div className="errors">
-          <div>{formErrors.username}</div>
-          <div>{formErrors.password}</div>
-        </div>
+            <div>{formErrors.username}</div>
+            <div>{formErrors.password}</div>
+          </div>
         </div>
       </form>
     </div>

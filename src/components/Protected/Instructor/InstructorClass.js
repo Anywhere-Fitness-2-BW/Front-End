@@ -20,7 +20,7 @@ const InstructorClass = (props) => {
   };
   //   console.log(props.classList.id, "id console");
   return (
-    <div className="class">
+    <div className="class cards">
       <div>
         <p>Instructor Name: {props.classList.instructor_name}</p>
         <p>Class Name: {props.classList.name}</p>
@@ -34,12 +34,12 @@ const InstructorClass = (props) => {
       </div>
 
       <button
-        className="editBtn"
+        className="navBtn"
         onClick={() => push(`/editclass/${props.classList.id}`)}
       >
         Edit Class
       </button>
-      <button className="deleteBtn" onClick={deleteClass}>
+      <button className="navBtn" onClick={deleteClass}>
         Delete
       </button>
     </div>
