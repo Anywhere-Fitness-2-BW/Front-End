@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import DashboardClass from './DashboardClass';
 import { useHistory } from 'react-router-dom';
 import { ClassListContext } from '../../../contexts/ClassListContext';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 const ClientDashboard = props =>{
 
@@ -9,13 +10,36 @@ const ClientDashboard = props =>{
     // const [classList, setClassList] = useState([])
     const {classList, setClassList} = useContext(ClassListContext) //TEST
 
-    // Fetch User's Class List
-    useEffect(()=>{
+    const fetchClientClassList = ()=>{
+        // axiosWithAuth()
+        //     .get('/api/auth/users/classes')
+        //     .then(res =>{
+        //         console.log(res.data)
+        //     })
+        //     .catch(err =>{
+        //         console.log(err)
+        //     })
+    }
 
+    useEffect(()=>{        
+        fetchClientClassList()
     },[])
+
+    const deleteClass = () =>{
+        // axiosWithAuth()
+        //     .delete()
+        //     .then(res =>{
+        //         console.log(res.data)
+        //     })
+        //     .then(// Fetch User's Class List)
+        //     .catch(err =>{
+        //         console.log(err)
+        //     })
+    }
 
     const cancelRegistration = cardInfo =>{
         // DELETE REQ
+        deleteClass()
     }
  
     return(
@@ -24,7 +48,7 @@ const ClientDashboard = props =>{
             <div>Registered Class</div>
             {classList.map( eachClass =>{
                 return(
-                    <DashboardClass key={eachClass.id} cardInfo={eachClass} cancelRegistration={cancelRegistration}/>
+                    <DashboardClass key={eachClass.id} cardInfo={eachClass} cancelRegistration={cancelRegistration} setClassList={setClassList}/>
                 )
             })}
         </div>

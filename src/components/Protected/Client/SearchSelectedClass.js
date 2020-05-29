@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { ClientContext } from '../../../contexts/ClientContext';
 import { useHistory } from 'react-router-dom';
+import { axiosWithAuth } from '../../../utils/axiosWithAuth';
 
 const SearchSelectedClass = props =>{
 
@@ -12,8 +13,20 @@ const SearchSelectedClass = props =>{
         push('/client/class_search')
     }
 
+    const clientAddClass = () =>{
+        // axiosWithAuth()
+        //     .post()
+        //     .then(res =>{
+        //         console.log(res.data)
+        //     })
+        //     .catch(err =>{
+        //         console.log(err)
+        //     })
+    }
+
     const registerClass = selectedClass =>{
         // POST REQ
+        clientAddClass()
     }
 
     return(

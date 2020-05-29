@@ -99,7 +99,8 @@ const sampleClassList = [
 
 function App() {
 
-  const [classList, setClassList] = useState(sampleClassList)
+  // const [classList, setClassList] = useState(sampleClassList)
+  const [classList, setClassList] = useState([])
 
   // Login
   const [isClient, setIsClient] = useState(false)
@@ -116,7 +117,7 @@ function App() {
   return (
     <div className="App">
       <ClassListContext.Provider
-        value={{ classList, setClassList, isClient, setIsClient }}
+        value={{ classList, setClassList }}
       >
         <Router>
 
@@ -138,17 +139,14 @@ function App() {
                 searchFilter, setSearchFilter,
                 }}>
 
-                {/* <PrivateRoute exact path="/client/class_search" component={Client} />
+                <PrivateRoute exact path="/client/class_search" component={Client} />
                 <PrivateRoute exact path="/client/class/:id" component={Client} />
-                <PrivateRoute exact path="/client/dashboard" component={ClientDashboard} /> */}
-                <Route exact path="/client/class_search" component={Client} /> */}  {/* TEST */}
-                <Route exact path="/client/class/:id" component={Client} /> */} {/* TEST */}
-                <Route exact path="/client/dashboard" component={ClientDashboard} /> */} {/* TEST */}
+                <PrivateRoute exact path="/client/dashboard" component={ClientDashboard} />
                 
           </ClientContext.Provider>
             
-          <Route path="/createclass" component={CreateClass} />
-          <Route path="/editclass/:id" component={EditClass} />
+          <PrivateRoute path="/createclass" component={CreateClass} />
+          <PrivateRoute path="/editclass/:id" component={EditClass} />
 
           <Route exact path="/">
             <Home />

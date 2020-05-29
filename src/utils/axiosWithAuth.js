@@ -6,6 +6,6 @@ export const axiosWithAuth = () => {
     headers: {
       Authorization: token,
     },
-    baseURL: "https://cors-anywhere.herokuapp.com/https://anytime-fitness.herokuapp.com/",
+    baseURL: "https://anytime-fitness.herokuapp.com/",
   });
 };

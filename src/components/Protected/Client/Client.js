@@ -9,11 +9,10 @@ const Client = props =>{
 
     const {isSearching} = useContext(ClientContext)
     
-    console.log("CliENT")
     return(
         <div>
             <SearchBar />
-            {console.log("RENDER")}
+            
             {isSearching && (
                 <Search />
             )}
