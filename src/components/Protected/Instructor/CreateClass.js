@@ -34,7 +34,7 @@ const CreateClass = (props) => {
       .post(`/api/auth/instructor/classes`, createClassForm)
       .then((res) => {
         console.log(res, "res");
-        // push("/");
+        push("/instructorlist");
       })
       .catch((err) => console.log(err));
     setCreateClassForm({
@@ -62,7 +62,7 @@ const CreateClass = (props) => {
   }, []);
 
   return (
-    <div className="createContainer">
+    <div className="class">
       <h3>Create a class</h3>
       <form onSubmit={onSubmit}>
         <label htmlFor="name">
