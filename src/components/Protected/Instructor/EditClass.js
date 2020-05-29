@@ -2,17 +2,17 @@ import React, { useState, useEffect } from "react";
 import { axiosWithAuth } from "../../../utils/axiosWithAuth";
 import { useParams, useHistory } from "react-router-dom";
 
-const EditClass = (props) => {
+const EditClass = () => {
   const [editClass, setEditClass] = useState([]);
   const { id } = useParams();
   const { push } = useHistory();
 
   useEffect(() => {
     axiosWithAuth()
-      .get(`/api/auth/users/classes/${id}`)
+      .get(`/api/auth/instructor/classes/${id}`)
       .then((res) => {
         console.log(res.data, "res data");
-        setEditClass(res.data.data);
+        setEditClass(res.data.clas);
       })
       .catch((err) => console.log(err));
   }, []);
@@ -20,11 +20,7 @@ const EditClass = (props) => {
   const handleChange = (event) => {
     event.persist();
     let value = event.target.value;
-    if (
-      event.target.name === "max_size" ||
-      event.target.name === "duration" ||
-      event.target.name === "type"
-    ) {
+    if (event.target.name === "max_size" || event.target.name === "duration") {
       value = parseInt(value);
     }
     setEditClass({
@@ -38,7 +34,8 @@ const EditClass = (props) => {
     axiosWithAuth()
       .put(`/api/auth/instructor/classes/${id}`, editClass)
       .then((res) => {
-        // push("/");
+        console.log(res, "submit");
+        push("/instructorlist");
       })
       .catch((err) => console.log(err));
   };
@@ -47,7 +44,7 @@ const EditClass = (props) => {
     axiosWithAuth()
       .get(`api/auth/users/classes`)
       .then((res) => {
-        console.log(res.data, "classes");
+        // console.log(res.data, "classes");
       })
       .catch((error) => {
         console.log("the data was not returned", error);
@@ -55,8 +52,8 @@ const EditClass = (props) => {
   }, []);
 
   return (
-    <div className="createContainer">
-      <h3>Edit your class</h3>
+    <div className="class">
+      <p>Edit your class</p>
       <form onSubmit={onSubmit}>
         <label htmlFor="name">
           Class Name
@@ -83,7 +80,7 @@ const EditClass = (props) => {
         </label>
 
         <label htmlFor="type">
-          Class Type - I.e - Boxing, HIIT, etc.
+          Class Type - i.e - Boxing, HIIT, etc.
           <input
             id="type"
             type="text"

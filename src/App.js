@@ -1,23 +1,23 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
-import { ClassListContext } from './contexts/ClassListContext';
-import { NavContext } from './contexts/NavContext';
-import { ClientContext } from './contexts/ClientContext'
+import { ClassListContext } from "./contexts/ClassListContext";
+import { NavContext } from "./contexts/NavContext";
+import { ClientContext } from "./contexts/ClientContext";
 
 import PrivateRoute from "./components/Protected/PrivateRoute";
 
-import Home from './components/Home';
+import Home from "./components/Home";
 import Logo from "./components/Logo";
 import LoginMark from "./components/LoginMark";
 import Register from "./components/Register";
-import Navigation from './components/Navigation';
+import Navigation from "./components/Navigation";
 import CreateClass from "./components/Protected/Instructor/CreateClass";
 import EditClass from "./components/Protected/Instructor/EditClass";
 import Client from "./components/Protected/Client/Client";
 import ClientDashboard from "./components/Protected/Client/ClientDashboard";
-
-import { useClient } from './hooks/useClient';
+import InstructorClassList from "./components/Protected/Instructor/InstructorClassList";
+import { useClient } from "./hooks/useClient";
 
 const sampleClassList = [
   {
@@ -98,60 +98,80 @@ const sampleClassList = [
 ];
 
 function App() {
-
   // const [classList, setClassList] = useState(sampleClassList)
-  const [classList, setClassList] = useState([])
+  const [classList, setClassList] = useState([]);
 
   // Login
-  const [isClient, setIsClient] = useState(false)
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isClient, setIsClient] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [initialSearch,
-    isSearching, setIsSearching, 
-    search, setSearch,
-    searchResults, setSearchResults,
-    selectedClass, setSelectedClass,
-    searchFilter, setSearchFilter] = useClient()
-  
+  const [
+    initialSearch,
+    isSearching,
+    setIsSearching,
+    search,
+    setSearch,
+    searchResults,
+    setSearchResults,
+    selectedClass,
+    setSelectedClass,
+    searchFilter,
+    setSearchFilter,
+  ] = useClient();
 
   return (
     <div className="App">
-      <ClassListContext.Provider
-        value={{ classList, setClassList }}
-      >
+      <ClassListContext.Provider value={{ classList, setClassList }}>
         <Router>
-
-          <NavContext.Provider value={{isLoggedIn, setIsLoggedIn, isClient, setIsClient}} >
+          <NavContext.Provider
+            value={{ isLoggedIn, setIsLoggedIn, isClient, setIsClient }}
+          >
             <Navigation />
-              <Route path="/login">
-                <Logo />
-                <LoginMark />
-                <Register />
-              </Route>
+            <Route path="/login">
+              <Logo />
+              <LoginMark />
+              <Register />
+            </Route>
           </NavContext.Provider>
 
-          <ClientContext.Provider value={{
-                initialSearch,
-                isSearching, setIsSearching, 
-                search, setSearch,
-                searchResults, setSearchResults,
-                selectedClass, setSelectedClass,
-                searchFilter, setSearchFilter,
-                }}>
-
-                <PrivateRoute exact path="/client/class_search" component={Client} />
-                <PrivateRoute exact path="/client/class/:id" component={Client} />
-                <PrivateRoute exact path="/client/dashboard" component={ClientDashboard} />
-                
+          <ClientContext.Provider
+            value={{
+              initialSearch,
+              isSearching,
+              setIsSearching,
+              search,
+              setSearch,
+              searchResults,
+              setSearchResults,
+              selectedClass,
+              setSelectedClass,
+              searchFilter,
+              setSearchFilter,
+            }}
+          >
+            <PrivateRoute
+              exact
+              path="/client/class_search"
+              component={Client}
+            />
+            <PrivateRoute exact path="/client/class/:id" component={Client} />
+            <PrivateRoute
+              exact
+              path="/client/dashboard"
+              component={ClientDashboard}
+            />
           </ClientContext.Provider>
-            
+
           <PrivateRoute path="/createclass" component={CreateClass} />
           <PrivateRoute path="/editclass/:id" component={EditClass} />
+          <PrivateRoute
+            path="/instructorlist"
+            component={InstructorClassList}
+          />
 
           <Route exact path="/">
             <Home />
           </Route>
-          
         </Router>
       </ClassListContext.Provider>
     </div>
